@@ -11,6 +11,7 @@ class CustomTrainer:
   def __init__(self, model_checkpoint, tokenizer, device, dataset, data_collator, batch_size=64, num_train_epochs=3):
     self.model = AutoModelForMaskedLM.from_pretrained(model_checkpoint).to(device)
     self.tokenizer = tokenizer
+    self.device = device
     self.dataset = dataset
     self.data_collator = data_collator
     self.batch_size = batch_size
