@@ -1,3 +1,11 @@
+import torch
+import math
+from torch.optim import AdamW
+from accelerate import Accelerator
+from transformers import get_scheduler, default_data_collator, AutoModelForMaskedLM
+from tqdm.auto import tqdm
+from torch.utils.data import DataLoader
+
 class CustomTrainer:
 
   def __init__(self, model_checkpoint, device, dataset, data_collator, batch_size=64, num_train_epochs=3):
@@ -83,7 +91,7 @@ class CustomTrainer:
                 outputs = model(**batch)
 
             loss = outputs.loss
-            losses.append(accelerator.gather(loss.repeat(batch_size)))
+            losses.append(accelerator.gather(loss.repeat(self.batch_size)))
 
         losses = torch.cat(losses)
         losses = losses[: len(eval_dataset)]
