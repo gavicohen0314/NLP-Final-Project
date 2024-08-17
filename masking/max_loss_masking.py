@@ -10,7 +10,7 @@ class max_loss_data_collator:
         self.tokenizer = tokenizer
         self.device = device
           
-    def max_loss_data_collator(self, features):
+    def __call__(self, features):
             wwm_probability = 0.15
 
             for feature in features:
