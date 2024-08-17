@@ -1,4 +1,4 @@
-def whole_word_random_masking_collator(features):
+def whole_word_random_data_collator(features):
         wwm_probability = 0.15
 
         for feature in features:
