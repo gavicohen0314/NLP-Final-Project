@@ -41,7 +41,7 @@ class min_loss_data_collator:
                     n = math.ceil(losses.size(0) * wwm_probability)
                     # Reshape the losses to match the original batch and sequence lengths
                     per_token_loss = losses.view(-1)
-                    top_loss_indices = torch.topk(per_token_loss[1:-1], n).indices + 1
+                    top_loss_indices = torch.topk(per_token_loss[1:-1], n, largest=False).indices + 1
 
                 # Mask the tokens with the highest loss
                 new_labels = [-100] * len(feature["labels"])
