@@ -3,7 +3,7 @@ import torch
 import math
 from transformers import default_data_collator
 
-class max_loss_data_collator:
+class min_loss_data_collator:
      
     def __init__(self, model, tokenizer, device):
         self.model = model
