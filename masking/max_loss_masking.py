@@ -2,7 +2,7 @@ import collections
 import torch
 import math
 
-def max_loss_data_collator(features):
+def max_loss_data_collator(features, model, tokenizer, device):
         wwm_probability = 0.15
 
         for feature in features:
@@ -46,4 +46,4 @@ def max_loss_data_collator(features):
             feature["input_ids"] = input_ids.tolist()
             feature["labels"] = new_labels
 
-        return default_data_collator(features)
+        return features
