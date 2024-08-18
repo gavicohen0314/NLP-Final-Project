@@ -79,7 +79,7 @@ class CustomTrainer:
         for batch in train_dataloader:
             outputs = model(**batch)
             loss = outputs.loss
-            self.train_losse.append(loss.item())
+            self.train_losses.append(loss.item())
             accelerator.backward(loss)
 
             optimizer.step()
@@ -111,3 +111,4 @@ class CustomTrainer:
 
         print(f">>> Epoch {epoch}: Perplexity: {perplexity}")
       
+    
