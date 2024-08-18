@@ -15,7 +15,8 @@ class CustomTrainer:
     self.data_collator = data_collator
     self.batch_size = batch_size
     self.num_train_epochs = num_train_epochs
-
+    self.train_losses = []  
+    self.eval_losses = [] 
 
   def _insert_mask(self, batch):
     features = [dict(zip(batch, t)) for t in zip(*batch.values())]
@@ -73,16 +74,19 @@ class CustomTrainer:
 
     for epoch in range(num_train_epochs):
         # Training
+        epoch_train_losses = []
         model.train()
         for batch in train_dataloader:
             outputs = model(**batch)
             loss = outputs.loss
+            self.train_losse.append(loss.item())
             accelerator.backward(loss)
 
             optimizer.step()
             lr_scheduler.step()
             optimizer.zero_grad()
             progress_bar.update(1)
+
 
         # Evaluation
         model.eval()
@@ -92,7 +96,11 @@ class CustomTrainer:
                 outputs = model(**batch)
 
             loss = outputs.loss
+            self.eval_losses.append(loss.item())
+
             losses.append(accelerator.gather(loss.repeat(self.batch_size)))
+        
+
 
         losses = torch.cat(losses)
         losses = losses[: len(eval_dataset)]
