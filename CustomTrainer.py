@@ -75,19 +75,7 @@ class CustomTrainer:
     for epoch in range(num_train_epochs):
         # Training
         epoch_train_losses = []
-        model.train()
-        for batch in train_dataloader:
-            outputs = model(**batch)
-            loss = outputs.loss
-            self.train_losses.append(loss.item())
-            accelerator.backward(loss)
-
-            optimizer.step()
-            lr_scheduler.step()
-            optimizer.zero_grad()
-            progress_bar.update(1)
-
-
+        
         # Evaluation
         model.eval()
         losses = []
@@ -99,8 +87,21 @@ class CustomTrainer:
             self.eval_losses.append(loss.item())
 
             losses.append(accelerator.gather(loss.repeat(self.batch_size)))
-        
 
+
+
+        model.train()
+        for batch in train_dataloader:
+            outputs = model(**batch)
+            loss = outputs.loss
+            self.train_losses.append(loss.item())
+            accelerator.backward(loss)
+
+            optimizer.step()
+            lr_scheduler.step()
+            optimizer.zero_grad()
+            progress_bar.update(1)
+        
 
         losses = torch.cat(losses)
         losses = losses[: len(eval_dataset)]
