@@ -3,7 +3,7 @@ import numpy as np
 from transformers import default_data_collator
 
 
-class psudo_max_loss_data_collator:
+class whole_word_random_colator:
      
     def __init__(self, model, tokenizer, device):
         self.model = model
