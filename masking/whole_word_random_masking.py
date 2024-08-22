@@ -1,4 +1,18 @@
-def whole_word_random_data_collator(features):
+import collections
+import numpy as np
+from transformers import default_data_collator
+
+
+class psudo_max_loss_data_collator:
+     
+    def __init__(self, model, tokenizer, device):
+        self.model = model
+        self.tokenizer = tokenizer
+        self.device = device
+    
+
+    #def whole_word_random_data_collator(features):
+    def __call__(self, features):
         wwm_probability = 0.15
 
         for feature in features:
@@ -25,7 +39,7 @@ def whole_word_random_data_collator(features):
                 word_id = word_id.item()
                 for idx in mapping[word_id]:
                     new_labels[idx] = labels[idx]
-                    input_ids[idx] = tokenizer.mask_token_id
+                    input_ids[idx] = self.tokenizer.mask_token_id
             feature["labels"] = new_labels
 
         return default_data_collator(features)
