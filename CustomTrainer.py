@@ -93,7 +93,7 @@ class CustomTrainer:
 
             # Gather predictions and true labels for masked tokens
             predictions = outputs.logits.argmax(dim=-1)
-            mask_token_index = batch['input_ids'] == self.model.config.mask_token_id
+            mask_token_index = batch['input_ids'] == self.tokenizer.mask_token_id
             masked_preds = torch.masked_select(predictions, mask_token_index)
             masked_labels = torch.masked_select(batch['labels'], mask_token_index)
 
