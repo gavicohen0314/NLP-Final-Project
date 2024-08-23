@@ -71,7 +71,7 @@ class CustomTrainer:
     except OverflowError:
         perplexity = float("inf")
 
-        print(f">>> Pre-Training Perplexity: {perplexity}")
+    print(f">>> Pre-Training Perplexity: {perplexity}")
 
     for epoch in range(num_train_epochs):
         #training
