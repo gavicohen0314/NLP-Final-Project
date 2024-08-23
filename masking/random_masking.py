@@ -7,6 +7,6 @@ class random_collator:
         self.tokenizer = tokenizer
         self.device = device
           
-    def __call__(self):
+    def __call__(self, features):
         return DataCollatorForLanguageModeling(tokenizer=self.tokenizer, mlm_probability=0.15)
     
