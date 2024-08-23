@@ -13,7 +13,7 @@ class psudo_min_loss_data_collator:
     
 
     #:def pseudo_max_perplexity_data_collator(features, n=5):
-    def __call__(self, features, n=5):
+    def __call__(self, features, n=10):
         pmp_probability = 0.15 # probability of a word being chosen to mask
 
         for feature in features:
