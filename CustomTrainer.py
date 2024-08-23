@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 
 class CustomTrainer:
 
-    def __init__(self, model, device, train_dataset, eval_dataset, data_collator, batch_size=64, num_train_epochs=3):
+    def __init__(self, model, device, train_dataset, eval_dataset, data_collator, batch_size=64, num_train_epochs=5):
         self.model = model
         self.device = device
         self.train_dataset = train_dataset
