@@ -21,6 +21,7 @@ class psudo_max_loss_data_collator:
             # Create a map between non-special tokens and corresponding real token indices
             mapping = collections.defaultdict(list)
             current_word_index = -1
+            current_word = None
             for idx, word_id in enumerate(word_ids):
                 if word_id is not None:
                     current_word_index += 1
