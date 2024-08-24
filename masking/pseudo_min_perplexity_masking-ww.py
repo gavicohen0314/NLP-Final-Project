@@ -4,7 +4,7 @@ import numpy as np
 from transformers import default_data_collator
 
 
-class psudo_min_loss_data_collator:
+class psudo_min_loss_data_collator_ww:
      
     def __init__(self, model, tokenizer, device):
         self.model = model
